@@ -1,0 +1,54 @@
+#settings-window {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    pointer-events: auto;
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+}
+
+#settings-window .container {
+    align-items: center;
+    background-color: var(--color-accent);
+    border: 4px var(--color-secondary);
+    border-style: double;
+    box-shadow: 0 0 5px var(--color-shadow);
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+#settings-window #settings-window-content {
+    background-color: var(--color-contrast);
+    border: 1px solid var(--color-secondary);
+    border-radius: 0.5rem;
+    gap: 1rem;
+    padding: 1rem;
+    min-width: 30rem;
+}
+
+#settings-window .settings-group {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "title title"
+        "controls extra";
+}
+
+#settings-window .settings-group h3 {
+    grid-area: title;
+}
+
+#settings-window .settings-group-controls {
+    gap: 0.5rem;
+    grid-area: controls;
+}
+
+#settings-window .settings-group-extra {
+    align-items: flex-end;
+    gap: 0.5rem;
+    grid-area: extra;
+    justify-content: flex-end;
+}

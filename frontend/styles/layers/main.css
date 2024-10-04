@@ -1,0 +1,44 @@
+@import url("../components/search-results.css");
+
+#main-ui {
+    padding: 1rem;
+}
+
+#main-ui .container {
+    display: grid;
+    grid-template-columns: 20rem 1fr 20rem;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+        "leftnav title rightnav"
+        "searchbar searchbar searchbar"
+        "results results results";
+    height: 100%;
+    width: 100%;
+}
+
+#main-title {
+    grid-area: title;
+    align-items: center;
+    justify-content: center;
+}
+
+#main-title h2,
+#main-title h3 {
+    text-align: center;
+}
+
+#main-nav-controls {
+    grid-area: rightnav;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#search-controls {
+    grid-area: searchbar;
+    padding: 1rem 3rem;
+}
+
+#search-results {
+    grid-area: results;
+    padding: 1rem 3rem;
+}

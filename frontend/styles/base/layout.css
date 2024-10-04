@@ -1,0 +1,34 @@
+/* Page layout */
+html, body {
+    --color-contrast: var(--color-ui-contrast);
+    background-color: var(--color-contrast);
+    overflow: hidden;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+.layer {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.container {
+    display: flex;
+}
+.row {
+    align-items: baseline;
+    display: flex;
+    flex-direction: row;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+}
+.full-width {
+    width: 100%;
+}
+.fill-row, .fill-column {
+    flex: 1;
+}

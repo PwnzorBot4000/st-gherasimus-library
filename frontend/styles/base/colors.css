@@ -1,0 +1,8 @@
+:root {
+    --color-ui-primary: #860604;
+    --color-ui-secondary: #9e6052;
+    --color-ui-contrast: white;
+    --color-ui-accent: #ffe5d9;
+    --color-ui-danger: red;
+    --color-ui-shadow: gray;
+}

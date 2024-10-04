@@ -1,0 +1,124 @@
+.ui {
+    --color-primary: var(--color-ui-primary);
+    --color-secondary: var(--color-ui-secondary);
+    --color-contrast: var(--color-ui-contrast);
+    --color-accent: var(--color-ui-accent);
+    --color-danger: var(--color-ui-danger);
+    --color-shadow: var(--color-ui-shadow);
+}
+/* title and subtitle define the headers */
+.ui h1 {
+    color: var(--color-secondary);
+    font-family: var(--font-ui);
+    font-size: 2.5rem;
+    text-shadow: 0 0 2px var(--color-shadow);
+}
+.ui h2 {
+    font-weight: bold;
+    color: var(--color-secondary);
+    font-family: var(--font-ui);
+    font-size: 2.23rem;
+    text-shadow: 0 0 2px var(--color-shadow);
+    text-transform: uppercase;
+}
+.ui h3 {
+    color: var(--color-secondary);
+    font-family: var(--font-ui);
+    font-weight: normal;
+    font-size: 1.7rem;
+    letter-spacing: 0.14rem;
+    text-shadow: 0 0 2px var(--color-shadow);
+    text-transform: uppercase;
+}
+.ui p {
+    color: var(--color-primary);
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+}
+.ui p[danger] {
+    color: var(--color-danger);
+}
+.ui a, .ui a:visited {
+    color: var(--color-secondary);
+}
+.ui label {
+    color: var(--color-primary);
+    font-family: var(--font-ui);
+    font-size: 1rem;
+}
+.ui label + input[type=search],
+.ui label + input[type=text],
+.ui label + input[type=password],
+.ui input[type=radio] + label {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+.ui button {
+    background: none;
+    border: none;
+    border-radius: 3px;
+    color: var(--color-secondary);
+    font-family: var(--font-ui);
+    font-size: 1.5rem;
+    text-shadow: 0 0 2px var(--color-shadow);
+    padding: 0.5em;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.ui button:hover {
+    color: var(--color-primary);
+    box-shadow: 0 0 4px var(--color-shadow);
+}
+.ui button:active {
+    color: var(--color-primary);
+    box-shadow: 0 0 1px var(--color-shadow);
+}
+.ui button[inline] {
+    color: inherit;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0;
+}
+.ui button[inline]:hover {
+    box-shadow: none;
+    filter: drop-shadow(0 0 1px var(--color-shadow));
+}
+.ui button[link] {
+    text-decoration: underline;
+}
+.ui button[minor] {
+    box-shadow: 0 0 1px var(--color-shadow);
+    font-size: 0.8rem;
+    padding: 0.2rem;
+}
+.ui button[primary] {
+    border: 3px var(--color-primary) double;
+}
+.ui button[danger]:hover {
+    border-color: var(--color-danger);
+    background-color: var(--color-danger);
+}
+.ui input {
+    background-color: var(--color-accent);
+    border: 1px var(--color-secondary) solid;
+    color: var(--color-primary);
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    text-shadow: 0 0 2px var(--color-shadow);
+    padding: 0.5em;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.ui input::placeholder {
+    color: var(--color-secondary);
+}
+
+/* layout overrides */
+.layer.ui {
+    pointer-events: none;
+}
+.layer.ui * {
+    pointer-events: auto;
+}

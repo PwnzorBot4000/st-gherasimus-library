@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="el-GR">
+  <head>
+    <meta charset="UTF-8">
+    <title>Δανειστική Βιβλιοθήκη Αγίου Γερασίμου</title>
+    <link rel="stylesheet" href="styles/main.css" />
+    <script type="module" src="scripts/main.js"></script>
+  </head>
+  <body>
+    <div id="main-ui" class="ui layer column" style="z-index: 10;">
+      <div class="container">
+        <div id="main-title" class="column">
+          <h2 class="title">Δανειστική Βιβλιοθήκη</h2>
+          <h3 class="subtitle">Αγίου Γερασίμου Άνω Ιλισίων</h3>
+        </div>
+        <div id="main-nav-controls" class="row">
+          <button onclick="ui.settings.open()">&#x2699;</button>
+        </div>
+        <div id="search-controls" class="row full-width">
+          <label for="search">Αναζήτηση:</label>
+          <input id="search" type="search" class="fill-row" placeholder="Όνομα / Κωδικός βιβλίου..." oninput="ui.search()" />
+          <button onclick="document.getElementById('xlsx-upload-input').click()">&#x21d1; xlsx</button>
+          <input id="xlsx-upload-input" type="file" accept=".xlsx" style="display: none;" onchange="ui.uploadXlsx(this.files[0])" />
+          <button>&#x2913; xlsx</button>
+        </div>
+        <div id="search-results" class="column full-width fill-column">
+        </div>
+      </div>
+    </div>
+    <div id="settings-window" class="ui layer" style="z-index: 20; display: none;">
+      <div class="container column">
+        <h1>Ρυθμίσεις</h1>
+        <div id="settings-window-content" class="column">
+          <div class="settings-group">
+            <h3>Τοποθεσία</h3>
+            <div class="settings-group-controls column">
+              <div class="row">
+                <input
+                    type="radio"
+                    id="terminal-location-reading-room"
+                    name="terminal-location"
+                    value="reading-room"
+                    onchange="this.checked && ui.settings.set('terminal-location', this.value)" />
+                <label for="terminal-location-reading-room">Αναγνωστήριο</label>
+              </div>
+              <div class="row">
+                <input
+                    type="radio"
+                    id="terminal-location-library"
+                    name="terminal-location"
+                    value="library"
+                    onchange="this.checked && ui.settings.set('terminal-location', this.value)" />
+                <label for="terminal-location-library">Δανειστική Βιβλιοθήκη</label>
+              </div>
+              <div class="row">
+                <input
+                    type="radio"
+                    id="terminal-location-expo"
+                    name="terminal-location"
+                    value="expo"
+                    onchange="this.checked && ui.settings.set('terminal-location', this.value)" />
+                <label for="terminal-location-expo">Έκθεση</label>
+              </div>
+            </div>
+            <div class="settings-group-extra column">
+              <button minor onclick="ui.settings.autodetectTerminalLocation()">Αυτόματη εύρεση</button>
+            </div>
+          </div>
+        </div>
+        <div id="settings-window-buttons" class="row">
+          <button onclick="ui.settings.close()">Έξοδος</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
