@@ -20,6 +20,8 @@ Library management UI for St. Gherasimus public library.
 - [ ] Add show/hide column ui
 - [ ] Search by visible columns
 - [ ] Add show book details ui
-- [ ] Fix FUOC somehow, if a non-hack way exists
 - [ ] Download xlsx functionality
 - [ ] Test on Windows
+- [ ] Show welcome screen if no data
+- [x] Fix FOUC somehow, if a non-hack way exists (v1.2)
+- [x] Release v1.0 (v1.1)

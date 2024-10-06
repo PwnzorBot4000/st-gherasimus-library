@@ -9,11 +9,12 @@ export class MainUI {
     this.settings = services.get('settingsUi');
 
     // UI elements
+    this.elem = document.getElementById('main-ui');
     this.searchElem = document.getElementById('search');
     this.settingsWindowElem = document.getElementById('settings-window');
 
-    // Init
-    await this.refresh();
+    // Show
+    await this.open();
   }
 
   async downloadXlsx() {
@@ -25,6 +26,11 @@ export class MainUI {
     const workbook = xlsx.utils.book_new();
     xlsx.utils.book_append_sheet(workbook, worksheet, 'Βιβλία');
     xlsx.writeFile(workbook, 'books.xlsx');
+  }
+
+  async open() {
+    await this.refresh();
+    this.elem.style.display = null;
   }
 
   async refresh() {
