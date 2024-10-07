@@ -1,4 +1,5 @@
 import {normalize, splitCode } from "../utils.js";
+import {SpreadsheetMapper} from "../services/spreadsheet-mapper.js";
 
 export class BooksApi {
   async init() {
@@ -21,7 +22,35 @@ export class BooksApi {
   }
 
   async exportData() {
-    return this.booksData;
+    const headers = SpreadsheetMapper.standardHeaderOrder.map((header) => header.name);
+    const rows = this.booksData.map((book, index) => {
+      const bookCodeParts = splitCode(book.code);
+      return SpreadsheetMapper.standardHeaderOrder.map((header) => {
+        switch (header.mappedKey) {
+          case 'index':
+            return index + 1;
+          case 'isLibrary':
+            return book.libraryId === 'library' ? 'Δ' : '';
+          case 'isExpo':
+            return book.libraryId === 'expo' ? 'Ε' : '';
+          case 'isReadingRoom':
+            return book.libraryId === 'reading-room' ? 'Α' : '';
+          case 'codeC1':
+            return bookCodeParts?.[0] ?? '';
+          case 'codeC2':
+            return bookCodeParts?.[1] ?? '';
+          case 'codeC3':
+            return bookCodeParts?.[2] ?? '';
+          case 'codeC4':
+            return bookCodeParts?.[3] ?? '';
+          default:
+            const value = book[header.mappedKey];
+            return value ?? '';
+        }
+      });
+    });
+
+    return {headers, rows};
   }
 
   async hasData() {
@@ -72,12 +101,10 @@ export class BooksApi {
       }
 
       // TODO: Convert code better
-      const codeParts = splitCode(mappedBook.code);
-      if (codeParts) {
-        mappedBook.code = codeParts.join('');
-      } else {
-        mappedBook.code = `${mappedBook['codeC1']}${mappedBook['codeC2']}${mappedBook['codeC3']}${mappedBook['codeC4']}`;
-      }
+      const codeParts = splitCode(mappedBook.code) ??
+        [mappedBook['codeC1'], mappedBook['codeC2'], mappedBook['codeC3'], mappedBook['codeC4']];
+      mappedBook.code = `${ codeParts[0] ?? 'χχ' }${ codeParts[1] ?? 'ΧΧ' }` +
+        `${ codeParts[2] ?? 'χχ' }${ codeParts[3] ?? 'ΧΧ' }`;
       delete mappedBook['codeC1'];
       delete mappedBook['codeC2'];
       delete mappedBook['codeC3'];

@@ -26,11 +26,13 @@ export class SpreadsheetMapper {
   // Expected header order
   // Heuristic method to map headers not in the standard map
   static standardHeaderOrder = [
-    { keys: ['AA'], mappedKey: 'index', regex: /^[0-9]+$/ },
-    { keys: ['ΑΡΙΘΜΟΣΕΙΣΑΓΩΓΗΣ'], mappedKey: 'entryId', regex: /^[0-9]+$/ },
-    { keys: ['ΗΜΕΡΟΜΗΝΙΑ'], mappedKey: 'entryDate', validator: (v) => (v instanceof Date) || /^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/.test(v) },
-    { keys: ['ΤΙΤΛΟΣ'], mappedKey: 'title', score: (v) => Math.min(tokenize(v).length, 8) }, // Title usually has lots of words
-    { keys: ['ΣΥΓΓΡΑΦΕΑΣ'], mappedKey: 'author', score: (v) => {
+    { keys: ['AA'], mappedKey: 'index', name: 'Α/Α', regex: /^[0-9]+$/ },
+    { keys: ['ΑΡΙΘΜΟΣΕΙΣΑΓΩΓΗΣ'], mappedKey: 'entryId', name: 'Αριθμός εισαγωγής', regex: /^[0-9]+$/ },
+    { keys: ['ΗΜΕΡΟΜΗΝΙΑ'], mappedKey: 'entryDate', name: 'Ημερομηνία', validator: (v) =>
+        (v instanceof Date) || /^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/.test(v) },
+    { keys: ['ΤΙΤΛΟΣ'], mappedKey: 'title', name: 'Τίτλος', score: (v) =>
+        Math.min(tokenize(v).length, 8) }, // Title usually has lots of words
+    { keys: ['ΣΥΓΓΡΑΦΕΑΣ'], mappedKey: 'author', name: 'Συγγραφέας', score: (v) => {
         switch (tokenize(v).length) {
           case 1: return 0.5;
           case 2: return 1.5;
@@ -38,7 +40,7 @@ export class SpreadsheetMapper {
           default: return 0;
         }
       } }, // Author usually has 2-3 words
-    { keys: ['ΕΚΔΟΤΗΣ'], mappedKey: 'publisher', score: (v) => {
+    { keys: ['ΕΚΔΟΤΗΣ'], mappedKey: 'publisher', name: 'Εκδότης', score: (v) => {
         switch (tokenize(v).length) {
           case 1: return 1.5;
           case 2: return 1;
@@ -46,7 +48,7 @@ export class SpreadsheetMapper {
           default: return 0;
         }
       } }, // Publisher usually has 1 word, max 2-3 words
-    { keys: ['ΕΚΔΟΤΕΣ'], mappedKey: 'publishers', optional: true, score: (v) => {
+    { keys: ['ΕΚΔΟΤΕΣ'], mappedKey: 'publishers', name: 'Εκδότες', optional: true, score: (v) => {
         switch (tokenize(v).length) {
           case 1: return 1.5;
           case 2: return 1;
@@ -54,17 +56,18 @@ export class SpreadsheetMapper {
           default: return 0;
         }
       } },
-    { keys: ['ΧΡΟΝΟΛΟΓΙΑ'], mappedKey: 'year', regex: /^[0-9]{4}$/ },
-    { keys: ['ΑΝΤΙΤΥΠΑ'], mappedKey: 'numCopies', regex: /^[0-9]$/ },
-    { keys: ['ΚΩΔΙΚΟΣ'], mappedKey: 'code', regex: /^[0-9]{1,2}[Α-Ω]{1,2}[α-ω]{1,2}[0-9]{1,3}$/ },
-    { keys: ['ΚΑΤ1'], mappedKey: 'codeC1', regex: /^[0-9]{1,2}$/ },
-    { keys: ['ΚΑΤ2'], mappedKey: 'codeC2', regex: /^[Α-Ω]{1,2}$/ },
-    { keys: ['ΚΑΤ3'], mappedKey: 'codeC3', regex: /^[α-ω]{1,2}$/ },
-    { keys: ['ΚΑΤ4'], mappedKey: 'codeC4', regex: /^[0-9]{1,3}$/ },
-    { keys: ['ΔΑΝΕΙΣΤΙΚΗ'], mappedKey: 'isLibrary', regex: /^Δ$/ },
-    { keys: ['ΕΚΘΕΣΗ'], mappedKey: 'isExpo', regex: /^Ε$/ },
-    { keys: ['ΑΝΑΓΝΩΣΤΗΡΙΟ'], mappedKey: 'isReadingRoom', regex: /^Α$/ },
-    { keys: ['ΠΕΡΙΓΡΑΦΗ'], mappedKey: 'description', score: (v) => (Math.max(tokenize(v).length - 5, 0) / 5) },
+    { keys: ['ΧΡΟΝΟΛΟΓΙΑ'], mappedKey: 'year', name: 'Χρονολογία', regex: /^[0-9]{4}$/ },
+    { keys: ['ΑΝΤΙΤΥΠΑ'], mappedKey: 'numCopies', name: 'Αντίτυπα', regex: /^[0-9]$/ },
+    { keys: ['ΚΩΔΙΚΟΣ'], mappedKey: 'code', name: 'Κωδικός', regex: /^[0-9]{1,2}[Α-Ω]{1,2}[α-ω]{1,2}[0-9]{1,3}$/ },
+    { keys: ['ΚΑΤ1'], mappedKey: 'codeC1', name: 'Κατ. 1', regex: /^[0-9]{1,2}$/ },
+    { keys: ['ΚΑΤ2'], mappedKey: 'codeC2', name: 'Κατ. 2', regex: /^[Α-Ω]{1,2}$/ },
+    { keys: ['ΚΑΤ3'], mappedKey: 'codeC3', name: 'Κατ. 3', regex: /^[α-ω]{1,2}$/ },
+    { keys: ['ΚΑΤ4'], mappedKey: 'codeC4', name: 'Κατ. 4', regex: /^[0-9]{1,3}$/ },
+    { keys: ['ΔΑΝΕΙΣΤΙΚΗ'], mappedKey: 'isLibrary', name: 'Δανειστική', regex: /^Δ$/ },
+    { keys: ['ΕΚΘΕΣΗ'], mappedKey: 'isExpo', name: 'Έκθεση', regex: /^Ε$/ },
+    { keys: ['ΑΝΑΓΝΩΣΤΗΡΙΟ'], mappedKey: 'isReadingRoom', name: 'Αναγνωστήριο', regex: /^Α$/ },
+    { keys: ['ΠΕΡΙΓΡΑΦΗ'], mappedKey: 'description', name: 'Περιγραφή', score: (v) =>
+        (Math.max(tokenize(v).length - 5, 0) / 5) },
   ];
 
   // Determine header mapping

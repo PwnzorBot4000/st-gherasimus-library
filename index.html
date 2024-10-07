@@ -19,7 +19,7 @@
           <input id="search" type="search" class="fill-row" placeholder="Όνομα / Κωδικός βιβλίου..." oninput="ui.search()" />
           <button onclick="document.getElementById('xlsx-upload-input').click()">&#x21d1; xlsx</button>
           <input id="xlsx-upload-input" type="file" accept=".xlsx" style="display: none;" onchange="ui.uploadXlsx(this.files[0])" />
-          <button>&#x2913; xlsx</button>
+          <button onclick="ui.downloadXlsx()">&#x2913; xlsx</button>
         </div>
         <div id="search-results" class="column full-width fill-column">
         </div>

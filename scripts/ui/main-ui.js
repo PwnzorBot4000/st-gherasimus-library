@@ -11,7 +11,6 @@ export class MainUI {
     // UI elements
     this.elem = document.getElementById('main-ui');
     this.searchElem = document.getElementById('search');
-    this.settingsWindowElem = document.getElementById('settings-window');
 
     // Show
     await this.open();
@@ -21,10 +20,12 @@ export class MainUI {
     const xlsx = await import('../external/xlsx.mjs');
     const cptable = await import('../external/cpexcel.full.mjs');
     xlsx.set_cptable(cptable);
-    const json = await this.booksApi.exportData();
-    const worksheet = xlsx.utils.json_to_sheet(json);
+
+    const data = await this.booksApi.exportData();
     const workbook = xlsx.utils.book_new();
+    const worksheet = xlsx.utils.aoa_to_sheet([data.headers, ...data.rows]);
     xlsx.utils.book_append_sheet(workbook, worksheet, 'Βιβλία');
+
     xlsx.writeFile(workbook, 'books.xlsx');
   }
 

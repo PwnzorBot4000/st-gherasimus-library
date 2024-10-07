@@ -19,7 +19,12 @@ export function splitCode(code) {
 
   if (!match) return undefined;
 
-  return [match[1], match[2], match[3], match[4]];
+  return [match[1], match[2], match[3], match[4]]
+    .map((v) => {
+      const vn = normalize(v);
+      if (vn === 'ΧΧ' || vn === 'XX') return undefined;
+      return v;
+    })
 }
 
 // Tokenizes a string into an array of normalized words
