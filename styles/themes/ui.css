@@ -30,16 +30,19 @@
     text-shadow: 0 0 2px var(--color-shadow);
     text-transform: uppercase;
 }
-.ui hr {
-    color: var(--color-secondary);
-}
 .ui p {
-    color: var(--color-primary);
+    color: var(--color-secondary);
     font-family: var(--font-ui);
     font-size: 1rem;
 }
+.ui p[primary], .ui p span[primary] {
+    color: var(--color-primary);
+}
 .ui p[danger] {
     color: var(--color-danger);
+}
+.ui hr {
+    color: var(--color-secondary);
 }
 .ui a, .ui a:visited {
     color: var(--color-secondary);
