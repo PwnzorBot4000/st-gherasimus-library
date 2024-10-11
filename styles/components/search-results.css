@@ -46,3 +46,15 @@
     text-align: center;
     width: 100%;
 }
+
+#search-results .book-details {
+    background-color: var(--color-accent);
+    border: 1px solid var(--color-secondary);
+    border-radius: 0.5rem;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+#search-results .book-details hr {
+    margin: 1rem 0;
+}

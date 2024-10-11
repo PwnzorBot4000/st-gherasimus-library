@@ -71,6 +71,36 @@ export class SearchResultsUI {
     }
   }
 
+  toggleBookDetails(bookIndex) {
+    const book = this.results[bookIndex];
+    const bookElem = this.elem.querySelector(`.search-result:nth-child(${bookIndex + 2})`);
+    const nextBookElem = this.elem.querySelector(`.search-result:nth-child(${bookIndex + 3})`);
+    const detailsButtonElem = bookElem.querySelector('.search-result-controls button');
+    const isOpen = bookElem.classList.contains('search-result-open');
+
+    if (isOpen) {
+      this.elem.removeChild(this.elem.querySelector(`.search-result:nth-child(${bookIndex + 2}) + .book-details`));
+
+      bookElem.classList.remove('search-result-open');
+      detailsButtonElem.innerHTML = '&#x25bc;';
+    } else {
+      const bookDetailsElem = document.getElementById('book-details-template').content.cloneNode(true);
+      bookDetailsElem.querySelector('.book-details-title').textContent = `${book.title} - ${book.author}`;
+      bookDetailsElem.querySelector('.book-detail-entry-id').textContent = book.entryId;
+      bookDetailsElem.querySelector('.book-detail-date').textContent = book.entryDate;
+      bookDetailsElem.querySelector('.book-detail-publisher').textContent = book.publisher;
+      bookDetailsElem.querySelector('.book-detail-year').textContent = book.year;
+      bookDetailsElem.querySelector('.book-detail-num-copies').textContent = book.numCopies;
+      bookDetailsElem.querySelector('.book-detail-description').textContent = book.description;
+      // TODO add more details per location, hide empty ones
+
+      this.elem.insertBefore(bookDetailsElem, nextBookElem);
+
+      detailsButtonElem.innerHTML = '&#x25b2;';
+      bookElem.classList.add('search-result-open');
+    }
+  }
+
   setColumnVisible(column, visible) {
     const terminalLocation = this.settingsApi.get('terminal-location');
     const defaultColumns = SearchResultsUI.defaultColumns[terminalLocation];
@@ -142,6 +172,7 @@ export class SearchResultsUI {
 
   add(result, options = {}) {
     const visibleColumns = this.getVisibleColumns();
+    const rowCount = this.elem.querySelectorAll('.search-result').length;
     const resultElem = document.createElement('div');
     resultElem.classList.add('search-result');
 
@@ -151,7 +182,6 @@ export class SearchResultsUI {
       fieldElem.classList.add(`search-result-${key}`);
       switch (key) {
         case 'index': {
-          const rowCount = this.elem.querySelectorAll('.search-result').length;
           fieldElem.textContent = rowCount.toString();
           break;
         }
@@ -166,7 +196,8 @@ export class SearchResultsUI {
     // Add controls
     const controlsElem = document.createElement('div');
     controlsElem.classList.add('search-result-controls');
-    controlsElem.innerHTML = options.controls || '<button inline>&#x25bc;</button>';
+    controlsElem.innerHTML = options.controls
+      || `<button inline onclick="ui.searchResults.toggleBookDetails(${rowCount - 1})">&#x25bc;</button>`;
     resultElem.appendChild(controlsElem);
 
     this.elem.appendChild(resultElem);

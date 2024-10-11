@@ -30,10 +30,13 @@
     text-shadow: 0 0 2px var(--color-shadow);
     text-transform: uppercase;
 }
+.ui hr {
+    color: var(--color-secondary);
+}
 .ui p {
     color: var(--color-primary);
     font-family: var(--font-ui);
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 .ui p[danger] {
     color: var(--color-danger);

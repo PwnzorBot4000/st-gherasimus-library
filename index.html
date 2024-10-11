@@ -7,6 +7,18 @@
   <body>
     <div id="main-ui" class="ui layer column" style="z-index: 10; display: none;">
       <div class="container">
+        <template id="book-details-template">
+          <div class="book-details">
+            <h3 class="book-details-title"></h3>
+            <hr>
+            <p>Αριθμός εισαγωγής: <span class="book-detail-entry-id"></span></p>
+            <p>Ημερομηνία εισαγωγής: <span class="book-detail-date"></span></p>
+            <p>Εκδότης: <span class="book-detail-publisher"></span></p>
+            <p>Χρονολογία: <span class="book-detail-year"></span></p>
+            <p>Αντίτυπα: <span class="book-detail-num-copies"></span></p>
+            <p>Περιγραφή: <span class="book-detail-description"></span></p>
+          </div>
+        </template>
         <div id="main-title" class="column">
           <h2 class="title">Δανειστική Βιβλιοθήκη</h2>
           <h3 class="subtitle">Αγίου Γερασίμου Άνω Ιλισίων</h3>
